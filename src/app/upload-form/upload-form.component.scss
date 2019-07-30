@@ -1,0 +1,43 @@
+.uploadForm { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    margin: 10px 0;
+}
+.dropzone { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    height: 100px;
+    width: 80%;
+    border: 2px dashed gray;
+    border-radius: 5px;
+    background: white;
+    margin: 10px 0;
+
+    &.hovering {
+        border: 2px solid #f16624;
+        color: #dadada !important;
+    }
+}
+
+progress::-webkit-progress-value {
+    transition: width 0.1s ease;
+}
+
+.fileDiv{
+    vertical-align: middle;
+}
+.fileName{
+    font-size: 20px;
+}
+.fileIcon{
+    height: 50px;
+    width: 50px;
+}
+.fileMessage{
+    margin-top: 10px;
+    font-size: 15px;
+}

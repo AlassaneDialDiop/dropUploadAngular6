@@ -3,18 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
-import { FileDropDirective } from './file-drop.directive';
+
+import { DragDirective } from './dragDrop.directive';
+
+import { UploadService } from './upload.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadFormComponent,
-    FileDropDirective
+    DragDirective
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [UploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

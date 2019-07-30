@@ -1,3 +1,14 @@
-<p>
-  upload-form works!
-</p>
+
+<div class="uploadForm">
+	<div *ngIf="fileHandle" class="dropzone">
+		<img *ngIf="fileHandle" class="fileIcon" src="assets/img/file.png">
+		<span *ngIf="fileHandle" class="fileName">{{fileHandle.file.name}}</span>
+	</div>
+	<div *ngIf="!fileHandle" class="dropzone" appDrag (file)="fileDropped($event)">
+		<div class="text-wrapper">
+			<div class="centered">Drop your file here!</div>
+			<button type="button" (click)="upload()">Cliquez pour choisir un fichier</button>
+		</div>
+	</div>
+	<span *ngIf="error" class="fileMessage">{{message}}</span>
+</div>
