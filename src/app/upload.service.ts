@@ -72,6 +72,8 @@ export class UploadService {
                     var key = array[0][k];
                     objArray[i - 1][key] = array[i][k]
                 }
+                objArray[i - 1]['deleted'] = false;
+                objArray[i - 1]['row'] = i-1;
             }
             var json = JSON.stringify(objArray);
             var str = json.replace(/},/g, "},\r\n");

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UploadService } from '../upload.service';
 import { FileHandle } from '../dragDrop.directive';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'upload-form',
@@ -9,7 +10,7 @@ import { FileHandle } from '../dragDrop.directive';
 })
 export class UploadFormComponent {
 
-  constructor(private uploadService: UploadService){}
+  constructor(private uploadService: UploadService,private dataService: DataService){}
 
   
   fileHandle: FileHandle = null;
@@ -29,9 +30,10 @@ export class UploadFormComponent {
     else{
       this.fileHandle = fileHandle;
       this.error = false;
-          let data = this.uploadService.getCsv(fileHandle.file).then((data)=>{
-            console.log(data);
-          });
+      this.uploadService.getCsv(fileHandle.file).then((data: any[])=>{
+        console.log(data);
+        this.dataService.data = data;
+      });
     }
   }
 

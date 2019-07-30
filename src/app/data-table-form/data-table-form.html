@@ -1,0 +1,71 @@
+<div style="margin: auto; max-width: 80%;">
+  <div>
+    <span>Highlight after: </span>
+    <input type="number" [(ngModel)]="yearLimit" class="form-control input-sm" style="display: inline-block; width: 100px">
+    <button (click)="updateTable()">Valider le fichier</button>
+    <button (click)="toggleEdit()">Mode Edition</button>
+    <button (click)="print()">Print</button>
+  </div>
+  <div [ngClass]="{'invisible': !(cars.length > 0)}">
+    <data-table
+      [items]="cars"
+      [itemCount]="carCount"
+      (reload)="reloadCars($event)"
+
+      [pagination]="true"
+      [indexColumn]="true"
+      [rowColors]="rowColors"
+      [selectOnRowClick]="false"
+      
+      [selectColumn]="false"
+      [multiSelect]="true"
+      [limit]="10"
+      >
+
+      <div *ngFor="let columnName of cars[0] | keyvalue">
+        <data-table-column
+          *ngIf="columnName.key != 'row' && columnName.key != 'deleted'"
+          property="{{columnName.key}}"
+          header="{{columnName.key}}"
+          sortable="true">
+            <ng-template #dataTableCell let-item="item">
+              <textarea 
+                id="row-{{item.row}}-col-{{columnName.key}}" 
+                name="row-{{item.row}}-col-{{columnName.key}}"
+                [ngModel]="item[columnName.key]"
+                (change)="onValueUpdate($event, item.row, columnName.key)"
+                (focus)="dataService.autoGrowTextZone($event)" 
+                (focusout)="dataService.autoResizeTextZone($event)" 
+                *ngIf="editable" 
+                type="text" 
+                class="form-control input-sm" 
+                style="background-color: transparent;"
+                ></textarea>
+              <span  *ngIf="!editable">{{item[columnName.key]}}</span>
+            </ng-template>
+        </data-table-column>
+      </div>
+
+      <data-table-column
+        header="Actions">
+        <ng-template #dataTableHeader let-item="item">
+          <i>Actions</i>
+        </ng-template>
+        <ng-template #dataTableCell let-item="item">
+          <button (click)="deleteRow(item)" class="btn btn-sm btn-default">
+            <img class="binIcon" src="assets/img/bin.png">
+          </button>
+        </ng-template>
+      </data-table-column>
+    </data-table>
+    <div>
+      <div>
+          <b>Selected:</b>
+          <span [textContent]="carsTable.selectedRows.length"></span>
+      </div>
+      <div *ngFor="let selected of carsTable.selectedRows">
+          <span [textContent]="selected.item.model"></span>
+      </div>
+    </div>
+  </div>
+</div>
